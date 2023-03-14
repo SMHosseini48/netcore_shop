@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ncorep.Data;
 
@@ -11,9 +12,10 @@ using ncorep.Data;
 namespace ncorep.Migrations
 {
     [DbContext(typeof(EshopContext))]
-    partial class EshopContextModelSnapshot : ModelSnapshot
+    [Migration("20230301081753_Refreshtoken")]
+    partial class Refreshtoken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,14 +57,14 @@ namespace ncorep.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "7b19d5b9-c344-4b18-b132-d4a60cc36918",
+                            ConcurrencyStamp = "d40e4547-a404-4906-b894-e92d3a7c95a5",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "710712f4-a656-4b7b-b04e-ed5478f8db84",
+                            ConcurrencyStamp = "175f81ee-10ef-4250-ad30-cfe2eb566ba9",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -308,7 +310,7 @@ namespace ncorep.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "00952cf5-d612-491f-9cf6-37a7c482a263",
+                            ConcurrencyStamp = "25781ad8-852f-4ef4-9026-7a06c730772d",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@example.com",
                             EmailConfirmed = true,
@@ -317,7 +319,7 @@ namespace ncorep.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPVS4ZcbcfXfKL4Wn8bW2B+uEV5s8qHpWC7cIfudqqNlPUv0+CGa7zHJ94SJThsSAA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELLTZQ6Jq2ko+lFwWj/fl++mt7CDvDPH1VxGXez9Hf1O+vjfwGLo51MHtmTzAcRLpA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
                             TwoFactorEnabled = false,

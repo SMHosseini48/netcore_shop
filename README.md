@@ -1,2 +1,2 @@
-#E-shop bulit with .net core
+# E-shop built with .net core
 

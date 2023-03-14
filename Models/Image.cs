@@ -5,7 +5,7 @@ using Microsoft.VisualBasic;
 
 namespace ncorep.Models;
 
-public class Image : EntityBase
+public class Image : IEntityBase
 {
     public int Id { get; set; }
 
@@ -28,4 +28,6 @@ public class Image : EntityBase
     {
         return $"Images/{filename}";
     }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 }

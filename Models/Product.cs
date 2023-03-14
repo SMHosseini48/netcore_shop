@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ncorep.Models;
 
-public class Product : EntityBase
+public class Product : IEntityBase
 {
     public int Id { get; set; }
 
@@ -32,4 +33,7 @@ public class Product : EntityBase
     public IList<OrderDetail> OrderDetails { get; set; }
 
     public IList<Image> Images { get; set; }
+    
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 }

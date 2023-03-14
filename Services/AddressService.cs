@@ -13,10 +13,10 @@ namespace ncorep.Services;
 public class AddressService : IAddressService
 {
     private readonly IGenericRepository<Address> _addressRepository;
-    private readonly IGenericRepository<Customer> _customerRepository;
+    private readonly IGenericRepository<AppUser> _customerRepository;
     private readonly IMapper _mapper;
 
-    public AddressService(IGenericRepository<Address> addressRepository,IGenericRepository<Customer> customerRepository, IMapper mapper)
+    public AddressService(IGenericRepository<Address> addressRepository,IGenericRepository<AppUser> customerRepository, IMapper mapper)
     {
         _addressRepository = addressRepository;
         _customerRepository = customerRepository;

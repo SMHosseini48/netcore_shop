@@ -11,12 +11,12 @@ namespace ncorep.Services;
 public class CartService : ICartService
 {
     private readonly IGenericRepository<ShoppingCartRecord> _shoppingCartRecordRepository;
-    private readonly IGenericRepository<Customer> _customerRepository;
+    private readonly IGenericRepository<AppUser> _customerRepository;
     private readonly IGenericRepository<Product> _productRepository;
     private readonly IMapper _mapper;
 
     public CartService(IGenericRepository<ShoppingCartRecord> shoppingCartRecordRepository,
-        IGenericRepository<Customer> customerRepository, IGenericRepository<Product> productRepository, IMapper mapper)
+        IGenericRepository<AppUser> customerRepository, IGenericRepository<Product> productRepository, IMapper mapper)
     {
         _shoppingCartRecordRepository = shoppingCartRecordRepository;
         _customerRepository = customerRepository;

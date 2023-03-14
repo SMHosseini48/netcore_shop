@@ -11,11 +11,11 @@ namespace ncorep.Services;
 public class OrderService : IOrderService
 {
     private readonly IGenericRepository<Order> _orderRepository;
-    private readonly IGenericRepository<Customer> _customerRepository;
+    private readonly IGenericRepository<AppUser> _customerRepository;
     private readonly IGenericRepository<ShoppingCartRecord> _shoppingCartRepository;
     private readonly IMapper _mapper;
 
-    public OrderService(IGenericRepository<Order> orderRepository,IGenericRepository<ShoppingCartRecord> shoppingCartRepository,IGenericRepository<Customer> customerRepository, IMapper mapper)
+    public OrderService(IGenericRepository<Order> orderRepository,IGenericRepository<ShoppingCartRecord> shoppingCartRepository,IGenericRepository<AppUser> customerRepository, IMapper mapper)
     {
         _orderRepository = orderRepository;
         _shoppingCartRepository = shoppingCartRepository;

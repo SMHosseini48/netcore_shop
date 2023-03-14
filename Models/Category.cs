@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ncorep.Models;
 
 [Index(nameof(Name), IsUnique = true)]
-public class Category : EntityBase
+public class Category : IEntityBase
 {
     public int Id { get; set; }
 
@@ -16,4 +17,6 @@ public class Category : EntityBase
     public string Name { get; set; }
 
     public IList<Product> Products { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 }

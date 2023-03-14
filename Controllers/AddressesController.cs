@@ -48,6 +48,7 @@ public class AddressesController : ControllerBase
     [HttpDelete]
     public async Task<IActionResult> Delete(int id)
     {
+        
         var result = await _addressService.Delete(id);
         if (result.Data == null) return StatusCode(result.StatusCode, result.ErrorMessage);
         return StatusCode(result.StatusCode, result.Data);

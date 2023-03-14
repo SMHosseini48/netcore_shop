@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ncorep.Data;
 
@@ -11,9 +12,10 @@ using ncorep.Data;
 namespace ncorep.Migrations
 {
     [DbContext(typeof(EshopContext))]
-    partial class EshopContextModelSnapshot : ModelSnapshot
+    [Migration("20230214112239_somethinggood1")]
+    partial class somethinggood1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,14 +57,14 @@ namespace ncorep.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "7b19d5b9-c344-4b18-b132-d4a60cc36918",
+                            ConcurrencyStamp = "9a0a1cf5-c325-4ca5-b1fb-678528b33a18",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "710712f4-a656-4b7b-b04e-ed5478f8db84",
+                            ConcurrencyStamp = "fd3a9336-5822-4ff7-bbae-25f398bd946c",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -194,6 +196,9 @@ namespace ncorep.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -212,12 +217,9 @@ namespace ncorep.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Addresses");
                 });
@@ -236,9 +238,6 @@ namespace ncorep.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -284,9 +283,6 @@ namespace ncorep.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -308,8 +304,7 @@ namespace ncorep.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "00952cf5-d612-491f-9cf6-37a7c482a263",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "25b4310c-4ca2-4239-a8bd-85d4d8250cf5",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -317,11 +312,10 @@ namespace ncorep.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPVS4ZcbcfXfKL4Wn8bW2B+uEV5s8qHpWC7cIfudqqNlPUv0+CGa7zHJ94SJThsSAA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJ+Jr8lE138Z61IAEciAL43YosAVm9C7/bGZ7uxiR0DiktMcM5dRhmsiDmCcW+/nyg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "admin@example.com"
                         });
                 });
@@ -351,6 +345,43 @@ namespace ncorep.Migrations
                         .IsUnique();
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("ncorep.Models.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("ncorep.Models.Image", b =>
@@ -512,36 +543,6 @@ namespace ncorep.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("ncorep.Models.RefreshToken", b =>
-                {
-                    b.Property<string>("Token")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpriryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Invalidated")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("JwtId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Used")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Token");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RefreshTokens");
-                });
-
             modelBuilder.Entity("ncorep.Models.ShoppingCartRecord", b =>
                 {
                     b.Property<int>("Id")
@@ -629,9 +630,20 @@ namespace ncorep.Migrations
 
             modelBuilder.Entity("ncorep.Models.Address", b =>
                 {
-                    b.HasOne("ncorep.Models.AppUser", "User")
+                    b.HasOne("ncorep.Models.Customer", "Customer")
                         .WithMany("Addresses")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("ncorep.Models.Customer", b =>
+                {
+                    b.HasOne("ncorep.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -651,7 +663,7 @@ namespace ncorep.Migrations
 
             modelBuilder.Entity("ncorep.Models.Order", b =>
                 {
-                    b.HasOne("ncorep.Models.AppUser", "Customer")
+                    b.HasOne("ncorep.Models.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -690,20 +702,9 @@ namespace ncorep.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("ncorep.Models.RefreshToken", b =>
-                {
-                    b.HasOne("ncorep.Models.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("ncorep.Models.ShoppingCartRecord", b =>
                 {
-                    b.HasOne("ncorep.Models.AppUser", "Customer")
+                    b.HasOne("ncorep.Models.Customer", "Customer")
                         .WithMany("ShoppingCartRecords")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -720,18 +721,18 @@ namespace ncorep.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ncorep.Models.AppUser", b =>
+            modelBuilder.Entity("ncorep.Models.Category", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ncorep.Models.Customer", b =>
                 {
                     b.Navigation("Addresses");
 
                     b.Navigation("Orders");
 
                     b.Navigation("ShoppingCartRecords");
-                });
-
-            modelBuilder.Entity("ncorep.Models.Category", b =>
-                {
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("ncorep.Models.Order", b =>

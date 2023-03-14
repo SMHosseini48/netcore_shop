@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ncorep.Models;
 
-public class Address : EntityBase
+public class Address : IEntityBase
 {
     public long Id { get; set; }
 
@@ -17,6 +18,10 @@ public class Address : EntityBase
     [DataType(DataType.PostalCode)]
     public string PostalCode { get; set; }
 
-    public int CustomerId { get; set; }
-    public Customer Customer { get; set; }
+    public int UserId { get; set; }
+
+    public AppUser User { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 }

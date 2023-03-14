@@ -3,7 +3,7 @@ using ncorep.Models;
 
 namespace ncorep.Dtos;
 
-public class CustomerDto : UserBaseResponseDto
+public class CustomerDto : AuthenticationResultDto
 {
     public List<AddressDto> Addresses { get; set; }
 

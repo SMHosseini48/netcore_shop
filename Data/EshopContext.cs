@@ -11,13 +11,12 @@ namespace ncorep.Data;
 
 public class EshopContext : IdentityDbContext<AppUser, IdentityRole<int>, int>
 {
-    public EshopContext(DbContextOptions options) : base(options)
+    public EshopContext(DbContextOptions<EshopContext> options) : base(options)
     {
     }
 
     public DbSet<Category> Categories { get; set; }
-
-    public DbSet<Customer> Customers { get; set; }
+    
 
     public DbSet<OrderDetail> OrderDetails { get; set; }
 
@@ -31,6 +30,7 @@ public class EshopContext : IdentityDbContext<AppUser, IdentityRole<int>, int>
 
     public DbSet<Image> Images { get; set; }
 
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -134,14 +134,14 @@ public class EshopContext : IdentityDbContext<AppUser, IdentityRole<int>, int>
     {
         var entities = ChangeTracker
             .Entries()
-            .Where(e => e.Entity is EntityBase &&
+            .Where(e => e.Entity is IEntityBase &&
                         (e.State == EntityState.Added || e.State == EntityState.Modified));
 
         foreach (var entityEntry in entities)
         {
-            ((EntityBase) entityEntry.Entity).UpdatedAt = DateTime.Now;
+            ((IEntityBase) entityEntry.Entity).UpdatedAt = DateTime.Now;
 
-            if (entityEntry.State == EntityState.Added) ((EntityBase) entityEntry.Entity).CreatedAt = DateTime.Now;
+            if (entityEntry.State == EntityState.Added) ((IEntityBase) entityEntry.Entity).CreatedAt = DateTime.Now;
         }
     }
 }

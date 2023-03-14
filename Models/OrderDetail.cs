@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ncorep.Models;
 
-public class OrderDetail : EntityBase
+public class OrderDetail : IEntityBase
 {
     public int Id { get; set; }
 
@@ -19,4 +20,6 @@ public class OrderDetail : EntityBase
     [Required] public int ProductId { get; set; }
 
     public Product Product { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 }

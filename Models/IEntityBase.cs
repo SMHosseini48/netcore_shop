@@ -2,7 +2,7 @@
 
 namespace ncorep.Models;
 
-public class EntityBase
+public interface IEntityBase
 {
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
