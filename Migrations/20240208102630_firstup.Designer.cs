@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ncorep.Data;
 
@@ -11,9 +12,10 @@ using ncorep.Data;
 namespace ncorep.Migrations
 {
     [DbContext(typeof(EshopContext))]
-    partial class EshopContextModelSnapshot : ModelSnapshot
+    [Migration("20240208102630_firstup")]
+    partial class firstup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,7 +68,7 @@ namespace ncorep.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Addresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("ncorep.Models.AppUser", b =>
@@ -106,7 +108,7 @@ namespace ncorep.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppUsers", (string)null);
+                    b.ToTable("AppUsers");
                 });
 
             modelBuilder.Entity("ncorep.Models.Category", b =>
@@ -141,7 +143,7 @@ namespace ncorep.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("ncorep.Models.Image", b =>
@@ -180,7 +182,7 @@ namespace ncorep.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("ncorep.Models.Order", b =>
@@ -213,7 +215,7 @@ namespace ncorep.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("ncorep.Models.OrderDetail", b =>
@@ -250,7 +252,7 @@ namespace ncorep.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderDetails", (string)null);
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("ncorep.Models.Product", b =>
@@ -298,7 +300,7 @@ namespace ncorep.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("ncorep.Models.ProductCategory", b =>
@@ -330,7 +332,7 @@ namespace ncorep.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductCategory", (string)null);
+                    b.ToTable("ProductCategory");
                 });
 
             modelBuilder.Entity("ncorep.Models.RefreshToken", b =>
@@ -361,7 +363,7 @@ namespace ncorep.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RefreshTokens", (string)null);
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("ncorep.Models.ShoppingCartRecord", b =>
@@ -396,7 +398,7 @@ namespace ncorep.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ShoppingCartRecords", (string)null);
+                    b.ToTable("ShoppingCartRecords");
                 });
 
             modelBuilder.Entity("ncorep.Models.Address", b =>

@@ -4,6 +4,5 @@ namespace ncorep.Dtos;
 
 public class ImageCreateDto
 {
-    [Required]
-    public int ProductId { get; set; }
+    [Required] public int ProductId { get; set; }
 }

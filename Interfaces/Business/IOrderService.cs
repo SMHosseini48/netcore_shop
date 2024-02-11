@@ -5,5 +5,5 @@ namespace ncorep.Interfaces.Business;
 
 public interface IOrderService
 {
-    Task<ServiceResult> OrderRegister(OrderCreateDTO orderCreateDto);
+    Task<ServiceResult> OrderRegister(OrderCreateDto orderCreateDto);
 }

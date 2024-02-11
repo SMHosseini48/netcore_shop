@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using ncorep.Dtos;
 using ncorep.Interfaces.Business;
 using ncorep.Interfaces.Data;
@@ -10,55 +12,39 @@ namespace ncorep.Services;
 
 public class OrderService : IOrderService
 {
-    private readonly IGenericRepository<Order> _orderRepository;
-    private readonly IGenericRepository<AppUser> _customerRepository;
-    private readonly IGenericRepository<ShoppingCartRecord> _shoppingCartRepository;
     private readonly IMapper _mapper;
-
-    public OrderService(IGenericRepository<Order> orderRepository,IGenericRepository<ShoppingCartRecord> shoppingCartRepository,IGenericRepository<AppUser> customerRepository, IMapper mapper)
+    private IHttpContextAccessor _httpContextAccessor;
+    private IUnitOfWork _unitOfWork;
+    public OrderService(IMapper mapper, IHttpContextAccessor httpContextAccessor, IUnitOfWork unitOfWork)
     {
-        _orderRepository = orderRepository;
-        _shoppingCartRepository = shoppingCartRepository;
-        _customerRepository = customerRepository;
         _mapper = mapper;
+        _httpContextAccessor = httpContextAccessor;
+        _unitOfWork = unitOfWork;
     }
 
-    public async Task<ServiceResult> OrderRegister(OrderCreateDTO orderCreateDto)
+    public async Task<ServiceResult> OrderRegister(OrderCreateDto orderCreateDto)
     {
-        var customer = await _customerRepository.GetOneByQueryAsync(q => q.Id == orderCreateDto.CustomerId);
-        if (customer == null) return new ServiceResult {ErrorMessage = "customer not found", StatusCode = 404};
-
-        var cartItems = await _shoppingCartRepository.GetAllAsync(q => q.CustomerId == orderCreateDto.CustomerId ,includes: new List<string> {"Product"});
-        if (cartItems.Count < 1) return new ServiceResult {ErrorMessage = "cart is empty", StatusCode = 404};
-        
+        var userId = _httpContextAccessor.HttpContext.User.Claims.Single(x => x.Type.ToString().Equals("id")).Value
+            .ToString();
         var order = new Order
         {
-            CustomerId = customer.Id
+            UserId = userId,
+            ShipDate = orderCreateDto.ShipDate,
+            OrderDate = orderCreateDto.OrderDate
         };
-
-        List<OrderDetail> orderDetails = new();
-        foreach (var item in cartItems)
+        order.OrderDetails = new List<OrderDetail>();
+        foreach (var item in orderCreateDto.OrderDetails)
         {
-            var orderDetail = new OrderDetail
+            order.OrderDetails.Add(new OrderDetail
             {
-                Quantity = item.Quantity,
-                ProductId = item.Product.Id,
-                Order = order,
-                UnitCost = item.Product.CurrentPrice
-            };
-            orderDetails.Add(orderDetail);
+                ProductId = item.ProductId,
+                LineItemTotal = item.LineItemTotal
+            });
         }
 
-        order.OrderDetails = orderDetails;
+        await _unitOfWork.Orders.InsertAsync(order);
+        await _unitOfWork.Orders.SaveChanges();
 
-        await _orderRepository.InsertAsync(order);
-        _shoppingCartRepository.DeleteRange(cartItems);
-        await _orderRepository.SaveChanges();
-        await _shoppingCartRepository.SaveChanges();
-
-        var result = _mapper.Map<OrderDTO>(order);
-
-        return new ServiceResult {Data = result, StatusCode = 200};
+        return new ServiceResult {Data = order.Id , StatusCode = 200};
     }
-    
 }

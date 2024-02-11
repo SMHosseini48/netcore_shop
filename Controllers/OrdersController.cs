@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ncorep.Dtos;
 using ncorep.Interfaces.Business;
@@ -15,10 +16,11 @@ public class OrdersController : ControllerBase
     {
         _orderService = orderService;
     }
-    
+
     [HttpPost]
+    [Authorize]
     [Route("add")]
-    public async Task<IActionResult> AddOrder([FromBody] OrderCreateDTO orderCreateDto)
+    public async Task<IActionResult> AddOrder([FromBody] OrderCreateDto orderCreateDto)
     {
         var result = await _orderService.OrderRegister(orderCreateDto);
         if (result.Data == null) return StatusCode(result.StatusCode, result.ErrorMessage);

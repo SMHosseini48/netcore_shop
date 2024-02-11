@@ -2,7 +2,7 @@
 
 namespace ncorep.Dtos;
 
-public class ProductUpdateDTO : ProductCreateDto 
+public class ProductUpdateDTO : ProductCreateDto
 {
-    [Required] public int Id { get; set; }
+    [Required] public string Id { get; set; }
 }

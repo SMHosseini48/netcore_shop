@@ -1,23 +1,18 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.VisualBasic;
 
 namespace ncorep.Models;
 
-public class Image : IEntityBase
+public class Image : BaseEntity
 {
-    public int Id { get; set; }
-
-
     public string FileName { get; set; }
-
 
     public string FilePath { get; set; }
 
     public Product Product { get; set; }
 
-    public int ProductId { get; set; }
+    public string ProductId { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 
     public string NameGenerator(int id, int productid)
     {
@@ -28,6 +23,4 @@ public class Image : IEntityBase
     {
         return $"Images/{filename}";
     }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
 }

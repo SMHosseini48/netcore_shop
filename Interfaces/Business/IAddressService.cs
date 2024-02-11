@@ -5,10 +5,10 @@ namespace ncorep.Interfaces.Business;
 
 public interface IAddressService
 {
-    Task<ServiceResult> GetOneById(int id);
+    Task<ServiceResult> GetUserAddresses();
     Task<ServiceResult> Create(AddressCreateDto addressCreateDto);
 
     Task<ServiceResult> Update(AddressUpdateDto addressUpdateDto);
 
-    Task<ServiceResult> Delete(int id);
+    Task<ServiceResult> Delete(string id);
 }

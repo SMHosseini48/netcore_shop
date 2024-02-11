@@ -1,23 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace ncorep.Models;
 
-public class Order : IEntityBase
+public class Order : BaseEntity
 {
-    public int Id { get; set; }
+    public DateTime OrderDate { get; set; }
 
-    [DataType(DataType.Date)] public DateTime OrderDate { get; set; }
+    public DateTime ShipDate { get; set; }
 
-    [DataType(DataType.Date)] public DateTime ShipDate { get; set; }
+    public string UserId { get; set; }
 
-    public int CustomerId { get; set; }
-
-    public AppUser Customer { get; set; }
-
+    public AppUser User { get; set; }
     public IList<OrderDetail> OrderDetails { get; set; }
-    
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
 }

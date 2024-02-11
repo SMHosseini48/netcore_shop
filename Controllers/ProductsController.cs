@@ -1,10 +1,7 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ncorep.Dtos;
 using ncorep.Interfaces.Business;
-using ncorep.Models;
 
 namespace ncorep.Controllers;
 
@@ -28,9 +25,8 @@ public class ProductsController : ControllerBase
             productCreateDto);
         if (result.Data == null) return StatusCode(result.StatusCode, result.ErrorMessage);
         return StatusCode(result.StatusCode, result.Data);
-        
     }
-    
+
     //[Authorize(Roles = nameof(Roles.Admin))]
     [HttpPut]
     [Route("update")]
@@ -42,10 +38,10 @@ public class ProductsController : ControllerBase
     }
 
     //[Authorize(Roles = nameof(Roles.Admin))]
-    [HttpGet]
-    public async Task<IActionResult> GetOne(int id)
+    [HttpPost]
+    public async Task<IActionResult> GetOne([FromBody] GetProductList getProductList)
     {
-        var result = await _productService.GetById(id);
+        var result = await _productService.GetProductList(getProductList);
         if (result.Data == null) return StatusCode(result.StatusCode, result.ErrorMessage);
         return StatusCode(result.StatusCode, result.Data);
     }

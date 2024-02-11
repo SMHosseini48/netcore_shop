@@ -1,12 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ncorep.Models;
 
-public class Address : IEntityBase
+public class Address : BaseEntity
 {
-    public long Id { get; set; }
-
     [Required] [MaxLength(150)] public string City { get; set; }
 
     [Required] [MaxLength(200)] public string StreetAddress { get; set; }
@@ -18,10 +15,7 @@ public class Address : IEntityBase
     [DataType(DataType.PostalCode)]
     public string PostalCode { get; set; }
 
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     public AppUser User { get; set; }
-
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
 }

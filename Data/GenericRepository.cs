@@ -8,12 +8,12 @@ using ncorep.Interfaces.Data;
 
 namespace ncorep.Data;
 
-public class GenericGenericRepository<T> : IGenericRepository<T> where T : class
+public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
     private readonly EshopContext _context;
     private readonly DbSet<T> _db;
 
-    public GenericGenericRepository(EshopContext context)
+    public GenericRepository(EshopContext context)
     {
         _context = context;
         _db = context.Set<T>();

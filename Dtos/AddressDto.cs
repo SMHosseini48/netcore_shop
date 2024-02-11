@@ -1,10 +1,8 @@
-﻿using ncorep.Models;
-
-namespace ncorep.Dtos;
+﻿namespace ncorep.Dtos;
 
 public class AddressDto
 {
-    public long Id { get; set; }
+    public string Id { get; set; }
 
     public string City { get; set; }
 
@@ -14,7 +12,5 @@ public class AddressDto
 
     public string PostalCode { get; set; }
 
-    public int CustomerId { get; set; }
-    
-    public CustomerDto Customer { get; set; }
+    public string UserId { get; set; }
 }

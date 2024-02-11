@@ -16,6 +16,7 @@ public class AutoMapperInitializer : Profile
         CreateMap<AppUser, UserLoginDTO>().ReverseMap();
         CreateMap<AppUser, UserLoginResponseDto>().ReverseMap();
         CreateMap<AppUser, CustomerUpdateDto>().ReverseMap();
+        CreateMap<AppUser, UserProfileDto>().ReverseMap();
 
         CreateMap<Product, ProductDto>().ReverseMap();
         CreateMap<Product, ProductCreateDto>().ReverseMap();
@@ -24,10 +25,10 @@ public class AutoMapperInitializer : Profile
         CreateMap<Image, ImageDto>().ReverseMap();
         CreateMap<Image, ImageCreateDto>().ReverseMap();
 
-       
+
         CreateMap<Order, OrderDTO>().ReverseMap();
-        CreateMap<Order, OrderCreateDTO>().ReverseMap();
-        CreateMap<OrderDetail, OrderDetailDTO>().ReverseMap();
+        CreateMap<Order, OrderCreateDto>().ReverseMap();
+        CreateMap<OrderDetail, OrderDetailDto>().ReverseMap();
 
 
         CreateMap<Address, AddressDto>().ReverseMap();

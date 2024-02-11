@@ -13,11 +13,7 @@ public class MyFilter : IActionFilter
 
     public void OnActionExecuted(ActionExecutedContext context)
     {
-
         // Do something after the action executes.
         Console.WriteLine("action executed2 ");
-        
-
     }
-    
 }

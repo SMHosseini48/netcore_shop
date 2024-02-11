@@ -25,14 +25,4 @@ public class CustomersController : ControllerBase
         if (result.Data == null) return StatusCode(result.StatusCode, result.ErrorMessage);
         return StatusCode(result.StatusCode, result.Data);
     }
-
-    [HttpPut]
-    [Route("profileupdate")]
-    [Authorize]
-    public async Task<IActionResult> UpdateCustomerProfile([FromBody] CustomerUpdateDto customerUpdateDto)
-    {
-        var result = await _customerService.ProfileUpdate(customerUpdateDto);
-        if (result.Data == null) return StatusCode(result.StatusCode, result.ErrorMessage);
-        return StatusCode(result.StatusCode, result.Data);
-    }
 }

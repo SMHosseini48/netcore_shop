@@ -15,7 +15,7 @@ public class RefreshToken
     public DateTime ExpriryDate { get; set; }
     public bool Invalidated { get; set; }
     public bool Used { get; set; }
-    public int UserId { get; set; }
-    
+    public string UserId { get; set; }
+
     public AppUser User { get; set; }
 }

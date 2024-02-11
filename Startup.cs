@@ -1,3 +1,4 @@
+using AutoMapper.Internal;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,14 +25,15 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.ConfigureSqlConnection(Configuration);
-        services.ConfigureIdentity();
         services.ConfigureJwt(Configuration);
         services.SwaggerConfig();
         services.AddHttpContextAccessor();
         services.AddAuthorization();
-        services.AddAutoMapper(typeof(AutoMapperInitializer));
+        services.AddAutoMapper(cfg => cfg.Internal().MethodMappingEnabled = false, typeof(AutoMapperInitializer));
         services.ServiceInjection();
-        services.AddTransient(typeof(IGenericRepository<>), typeof(GenericGenericRepository<>));
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+
         services.AddControllers().AddNewtonsoftJson(op =>
             op.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
     }
@@ -43,7 +45,7 @@ public class Startup
         app.UseSwaggerUI();
         if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
         app.UseRouting();
-        app.UseAuthentication();    
+        app.UseAuthentication();
         app.UseAuthorization();
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }

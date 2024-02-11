@@ -15,5 +15,5 @@ public class JwtSettings
 
     public byte[] Secret => Encoding.UTF8.GetBytes(_configuration["JWT:Key"]);
     public TimeSpan RefreshTokenLifetime => TimeSpan.Parse(_configuration["JWT:RefreshTokenLifeTime"]);
-    public TimeSpan TokenLifetime => TimeSpan.Parse(_configuration["JWT:AccessTokenLifetime"] );
+    public TimeSpan TokenLifetime => TimeSpan.Parse(_configuration["JWT:AccessTokenLifetime"]);
 }

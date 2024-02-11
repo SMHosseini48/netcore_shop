@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -11,20 +12,19 @@ namespace ncorep.Controllers;
 [ApiController]
 public class AccountsController : ControllerBase
 {
-    private readonly IUserService _userService;
     private readonly IConfiguration _configuration;
     private readonly IJwtService _jwtService;
+    private readonly IUserService _userService;
 
     public AccountsController(IUserService userService, IConfiguration configuration, IJwtService jwtService)
     {
-        
         _configuration = configuration;
         _jwtService = jwtService;
         _userService = userService;
     }
 
     /// <summary>
-    /// registers a user    
+    ///     registers a user
     /// </summary>
     [HttpPost]
     [Route("register")]
@@ -63,13 +63,16 @@ public class AccountsController : ControllerBase
         var result = await _jwtService.RefreshToken(refreshRequest);
         return StatusCode(result.StatusCode, result);
     }
-    
+
     [HttpGet]
-    [Authorize]
     [Route("test2")]
     public IActionResult test1()
     {
-        return Ok("everything is good");
+        var some = TimeSpan.Parse("00:05:10");
+        var now = DateTime.Now;
+        var nowandsome = now.Add(some);
+
+        return Ok($"{some}   {now}   {nowandsome}");
     }
 
     // [HttpPost]

@@ -9,5 +9,4 @@ public interface IJwtService
     public Task<ServiceResult> CreateToken(AppUser user);
 
     public Task<ServiceResult> RefreshToken(RefreshRequest refreshRequest);
-
 }

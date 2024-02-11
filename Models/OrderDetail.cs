@@ -1,25 +1,15 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ncorep.Models;
 
-public class OrderDetail : IEntityBase
+public class OrderDetail : BaseEntity
 {
-    public int Id { get; set; }
+    [Column(TypeName = "decimal(14, 5)")] public decimal LineItemTotal { get; set; }
 
-    public int Quantity { get; set; }
-
-    [DataType(DataType.Currency)] public decimal UnitCost { get; set; }
-
-    public decimal? LineItemTotal { get; set; }
-
-    [Required] public int OrderId { get; set; }
-
+    [Required] public string OrderId { get; set; }
     public Order Order { get; set; }
-
-    [Required] public int ProductId { get; set; }
+    [Required] public string ProductId { get; set; }
 
     public Product Product { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
 }

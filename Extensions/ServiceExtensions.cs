@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ncorep.Data;
-using ncorep.Helpers;
 using ncorep.Interfaces.Business;
 using ncorep.Models;
 using ncorep.Services;
@@ -57,7 +56,7 @@ public static class ServiceExtensions
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"])),
             ClockSkew = TimeSpan.Zero
         };
-        
+
 
         services.AddAuthentication(x =>
         {
@@ -67,7 +66,7 @@ public static class ServiceExtensions
         }).AddJwtBearer(o =>
         {
             o.SaveToken = true;
-            o.TokenValidationParameters = ValidationParameters(configuration , true);
+            o.TokenValidationParameters = ValidationParameters(configuration, true);
         });
     }
 
@@ -87,14 +86,14 @@ public static class ServiceExtensions
 
     public static void ServiceInjection(this IServiceCollection services)
     {
-        services.AddTransient<IJwtService, JwtService>();
-        services.AddTransient<IUserService, UserService>();
-        services.AddTransient<ICartService, CartService>();
-        services.AddTransient<IOrderService, OrderService>();
-        services.AddTransient<ICategoryService, CategoryService>();
-        services.AddTransient<IProductService, ProductService>();
-        services.AddTransient<IAddressService, AddressService>();
-        services.AddTransient<IImageService, ImageService>();
+        services.AddScoped<IJwtService, JwtService>();
+        services.AddScoped<ICustomerService, CustomerService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<ICategoryService, CategoryService>();
+        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IAddressService, AddressService>();
+        services.AddScoped<IImageService, ImageService>();
     }
 
     public static void SwaggerConfig(this IServiceCollection services)
@@ -113,7 +112,7 @@ public static class ServiceExtensions
                     In = ParameterLocation.Header,
                     Description = "Please insert JWT with Bearer into field",
                     Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
+                    Type = SecuritySchemeType.ApiKey
                 });
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement

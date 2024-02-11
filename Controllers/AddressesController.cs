@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ncorep.Dtos;
 using ncorep.Interfaces.Business;
@@ -16,14 +17,13 @@ public class AddressesController : ControllerBase
         _addressService = addressService;
     }
 
+    [Authorize]
     [HttpGet]
-    [Route("{id:int}")]
-    public async Task<IActionResult> GetOne(int id)
+    public async Task<IActionResult> GetUserAddresses()
     {
-        var result = await _addressService.GetOneById(id);
+        var result = await _addressService.GetUserAddresses();
         if (result.Data == null) return StatusCode(result.StatusCode, result.ErrorMessage);
         return StatusCode(result.StatusCode, result.Data);
-
     }
 
     [Route("add")]
@@ -44,11 +44,9 @@ public class AddressesController : ControllerBase
         return StatusCode(result.StatusCode, result.Data);
     }
 
-    [Route("{id:int}")]
     [HttpDelete]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete([FromBody] string id)
     {
-        
         var result = await _addressService.Delete(id);
         if (result.Data == null) return StatusCode(result.StatusCode, result.ErrorMessage);
         return StatusCode(result.StatusCode, result.Data);

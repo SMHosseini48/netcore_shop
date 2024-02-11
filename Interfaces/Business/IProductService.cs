@@ -9,5 +9,5 @@ public interface IProductService
 
     Task<ServiceResult> Update(ProductUpdateDTO productUpdateDto);
 
-    Task<ServiceResult> GetById(int id);
+    Task<ServiceResult> GetProductList(GetProductList getProductList);
 }

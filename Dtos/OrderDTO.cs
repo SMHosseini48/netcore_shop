@@ -13,5 +13,5 @@ public class OrderDTO
 
     public CustomerDto Customer { get; set; }
 
-    public List<OrderDetailDTO> OrderDetails { get; set; } = new();
+    public List<OrderDetailDto> OrderDetails { get; set; } = new();
 }

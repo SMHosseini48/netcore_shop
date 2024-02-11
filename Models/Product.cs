@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ncorep.Models;
 
-public class Product : IEntityBase
+public class Product : BaseEntity
 {
-    public int Id { get; set; }
-
     [Required(ErrorMessage = "Product name is required")]
     [MaxLength(250)]
     public string Name { get; set; }
@@ -16,24 +13,15 @@ public class Product : IEntityBase
 
     [MaxLength(50)] public string ModelName { get; set; }
 
-    public bool IsFeatured { get; set; }
-
     [MaxLength(50)] public string ModelNumber { get; set; }
-
     [DataType(DataType.Currency)] public decimal UnitCost { get; set; }
 
     [DataType(DataType.Currency)] public decimal CurrentPrice { get; set; }
 
     public int UnitInStock { get; set; }
 
-    [Required] public int CategoryId { get; set; }
+    public IList<ProductCategory> ProductCategories { get; set; }
 
-    public Category Category { get; set; }
-
-    public IList<OrderDetail> OrderDetails { get; set; }
 
     public IList<Image> Images { get; set; }
-    
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
 }

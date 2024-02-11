@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using ncorep.Models;
 
 namespace ncorep.Dtos;
 
@@ -21,8 +20,7 @@ public class ProductCreateDto
     [DataType(DataType.Currency)] public decimal UnitCost { get; set; }
 
     [DataType(DataType.Currency)] public decimal CurrentPrice { get; set; }
-
     public int UnitInStock { get; set; }
 
-    [Required] public int CategoryId { get; set; }
+    [Required] public IList<string> CategoriesId { get; set; }
 }

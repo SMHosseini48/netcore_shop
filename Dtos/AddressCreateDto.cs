@@ -14,6 +14,4 @@ public class AddressCreateDto
     [MaxLength(50)]
     [DataType(DataType.PostalCode)]
     public string PostalCode { get; set; }
-
-    public int CustomerId { get; set; }
 }

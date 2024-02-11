@@ -17,15 +17,6 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{id:int}")]
-    public async Task<IActionResult> GetOneCategory(int id)
-    {
-        var result = await _categoryService.GetOne(id);
-        if (result.Data == null) return StatusCode(result.StatusCode, result.ErrorMessage);
-        return StatusCode(result.StatusCode, result.Data);
-    }
-
-    [HttpGet]
     [Route("all")]
     public async Task<IActionResult> GetAllCategories()
     {
@@ -38,7 +29,7 @@ public class CategoriesController : ControllerBase
     [Route("add")]
     public async Task<IActionResult> AddOne(CategoryCreateDTO categoryCreateDto)
     {
-        var result =await _categoryService.Create(categoryCreateDto);
+        var result = await _categoryService.Create(categoryCreateDto);
         if (result.Data == null) return StatusCode(result.StatusCode, result.ErrorMessage);
         return StatusCode(result.StatusCode, result.Data);
     }

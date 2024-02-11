@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace ncorep.Models;
 
 [Index(nameof(Name), IsUnique = true)]
-public class Category : IEntityBase
+public class Category : BaseEntity
 {
-    public int Id { get; set; }
-
     [Required(ErrorMessage = "Category name is required")]
-    [DataType(DataType.Text)]
     [MaxLength(50)]
     public string Name { get; set; }
 
-    public IList<Product> Products { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+
+    public string ParentId { get; set; }
+    public Category Parent { get; set; }
+
+    public List<Category> Childrens { get; set; }
+
+    public List<ProductCategory> ProductCategories { get; set; }
 }

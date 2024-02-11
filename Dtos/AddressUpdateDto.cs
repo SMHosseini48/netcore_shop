@@ -4,7 +4,7 @@ namespace ncorep.Dtos;
 
 public class AddressUpdateDto
 {
-    [Required] public int Id { get; set; }
+    [Required] public string Id { get; set; }
 
     [Required] [MaxLength(150)] public string City { get; set; }
 

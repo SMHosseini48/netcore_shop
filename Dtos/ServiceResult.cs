@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ncorep.Dtos;
+﻿namespace ncorep.Dtos;
 
 public class ServiceResult
 {
