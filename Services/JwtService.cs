@@ -72,7 +72,7 @@ public class JwtService : IJwtService
         var accessToken = refreshRequest.AccessToken;
         var refreshToken = refreshRequest.RefreshToken;
 
-        var validatedToken = GetPrinciapalFromToken(accessToken);
+        var validatedToken = GetPrincipalFromToken(accessToken);
 
         if (validatedToken == null) return new ServiceResult {ErrorMessage = "invalid token", StatusCode = 401};
 
@@ -110,7 +110,7 @@ public class JwtService : IJwtService
         return await CreateToken(user);
     }
 
-    private ClaimsPrincipal GetPrinciapalFromToken(string token)
+    private ClaimsPrincipal GetPrincipalFromToken(string token)
     {
         var expiredTokenValidationParameters = ServiceExtensions.ValidationParameters(_configuration, true);
         try

@@ -45,19 +45,6 @@ public static class ServiceExtensions
 
     public static void ConfigureJwt(this IServiceCollection services, IConfiguration configuration)
     {
-        var aliveTokenValidation = new TokenValidationParameters
-        {
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = configuration["JWT:Issuer"],
-            ValidAudience = configuration["JWT:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"])),
-            ClockSkew = TimeSpan.Zero
-        };
-
-
         services.AddAuthentication(x =>
         {
             x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -66,22 +53,8 @@ public static class ServiceExtensions
         }).AddJwtBearer(o =>
         {
             o.SaveToken = true;
-            o.TokenValidationParameters = ValidationParameters(configuration, true);
+            o.TokenValidationParameters = ValidationParameters(configuration, false);
         });
-    }
-
-    public static void ConfigureIdentity(this IServiceCollection services)
-    {
-        services.AddIdentity<AppUser, IdentityRole<int>>(q =>
-            {
-                q.User.RequireUniqueEmail = true;
-                q.Password.RequiredLength = 2;
-                q.Password.RequireDigit = false;
-                q.Password.RequireNonAlphanumeric = false;
-                q.Password.RequireUppercase = false;
-                q.Password.RequireLowercase = false;
-            }).AddEntityFrameworkStores<EshopContext>()
-            .AddDefaultTokenProviders();
     }
 
     public static void ServiceInjection(this IServiceCollection services)
